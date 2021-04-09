@@ -3,6 +3,7 @@ require_once 'config.php';
 
 class BancoDeDados {
     private $pdo;
+    private $login;
 
     public function __construct(){
         $this->conecta();
@@ -20,15 +21,28 @@ class BancoDeDados {
         }
     }
 
+
+    // TODO: remover esse metodo
+    public function pegaPDO(): PDO {
+        return $this->pdo;
+    }
+
     public function consultaTodosProdutos(): array {
         // Listar a consulta
         $sql = "SELECT * FROM produto";
         return $this->pdo->query($sql)->fetchAll();
     }
 
-    public function realizaLogin(string $login, string $senha) : array {
+    public function consultaUsuario(string $login, string $senha) : array {
         // TODO: terminar de implementar o código que consulta a tabela cadastro procurando por um registro pelo login e senha
         //login.
+        $dados = $this->pdo->prepare("SELECT id, nome, admin FROM cadastro WHERE email = :email AND senha = :senha");
+        $dados->bindparam(':email', $login);
+        $dados->bindparam(':senha', $senha);
+        $dados->execute();
+
+        // pega todas as linhas em forma de array
+        return $dados->fetchAll(PDO::FETCH_CLASS);
     }
-    
+   
 }

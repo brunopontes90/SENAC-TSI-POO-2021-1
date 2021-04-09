@@ -1,31 +1,37 @@
 <?php
 
 require_once '../db/db.php';
+require_once 'sessao.php';
+$banco = new BancoDeDados();
+$sessao = new Sessao();
 
-if(isset($_SESSION['login'])){ //caso o user estiver logado no sistema
+if($sessao->estaLogado()){ //caso o user estiver logado no sistema
 
     include 'pag.php';
 
 }else if(isset($_POST['entrar'])){ //caso o user tenha acabado de preencher o form de login
+
     // Faz o select no banco verificando se o login e senha informados existem
-    $query = $banco->prepare("SELECT id, nome, admin FROM cadastro WHERE email = :email AND senha = :senha");
-    $query->bindparam(':email', $_POST['login']);
-    $query->bindparam(':senha', $_POST['senha']);
-    $query->execute();
+
+    // Faz o select no banco verificando se o login e senha informados existem
+    // $query = $banco->prepare("SELECT id, nome, admin FROM cadastro WHERE email = :email AND senha = :senha");
+    // $query->bindparam(':email', $_POST['login']);
+    // $query->bindparam(':senha', $_POST['senha']);
+    // $query->execute();
     
-    // pega todas as linhas em forma de array
-    $result = $query->fetchAll(PDO::FETCH_CLASS);
+    // // pega todas as linhas em forma de array
+    // $result = $query->fetchAll(PDO::FETCH_CLASS);
     
     // Verifica se existe 1 elemento dentro do array
-    if (count($result) == 1) {
+    $dadosDoUsuario = $banco->consultaUsuario($_POST['login'], $_POST['senha']);
+    if (count($dadosDoUsuario) == 1) {
 
-        session_start();
+        // session_start();
+        $sessao->iniciarSessao();
 
         //Cria vetor no SESSION para o login do user e verifica se existe esse login nas outras paginas
-        $_SESSION['login'] = $result[0]->nome;
-        $_SESSION['id'] = $result[0]->id;
-        $_SESSION['admin'] = $result[0]->admin;
-
+        $sessao->armazenaInformacoes($dadosDoUsuario[0]->nome, $dadosDoUsuario[0]->id, $dadosDoUsuario[0]->admin);
+        
         // redireciona para a home
         header('Location: /index.php');
     }else{

@@ -10,6 +10,16 @@
             return $_SESSION['login'];
         }
 
+        public function pegaSenhaUser(): string {
+            return $_SESSION['senha'];
+        }
+
+        public function armazenaInformacoes(string $login, int $id, bool $admin) : void {
+            $_SESSION['login'] = $login;
+            $_SESSION['id'] = $id;
+            $_SESSION['admin'] = $admin;
+        }
+
         // verifica se esta logado se não, redireciona para o index
         public function redirecionaSeNaoTiverLogado() : void {
             if (!$this->estaLogado()) { //se nao estiver logado, retorna para 'index.php'
@@ -28,24 +38,8 @@
         public function ehAdmin() : bool {
             if ($this->estaLogado() && $_SESSION['admin'] == 1) {
                 return true;
-            }
-            else {
+            }else {
                 return false;
             }
         }
     }
-
-  
-    /*
-    class Usuario {
-        public function estaLogado() : bool {
-            return isset($_SESSION['login']);
-        }
-    }
-
-    class Admin extends Usuario {
-        public function estaLogado() : bool {
-            return parent::estaLogado() && $_SESSION['admin'] == 1;
-        }
-    }
-    */

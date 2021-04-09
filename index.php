@@ -1,6 +1,6 @@
 <?php
-    require 'php/sessao.php';
-    require 'db/db.php';
+    require_once 'db/db.php';
+    require_once 'php/sessao.php';
     $sessao = new Sessao();
     $sessao->iniciarSessao();
 
