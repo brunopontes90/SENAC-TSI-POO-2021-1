@@ -44,5 +44,4 @@ class BancoDeDados {
         // pega todas as linhas em forma de array
         return $dados->fetchAll(PDO::FETCH_CLASS);
     }
-   
 }
