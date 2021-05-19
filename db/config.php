@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 class Config {
-    public $db = 'sqlsrv:Server=localhost\\SQLEXPRESS;Database=SENAC-TSI-POO-2021-1';//localhost na maioria dos PCs dos alunos
-    public $user = 'sa';
-    public $password = '9012@TIBruno';
+    public $db = 'mysql:host=localhost;dbname=SENAC_TSI_POO_2021_1';//'sqlsrv:Server=localhost\\SQLEXPRESS;Database=SENAC_TSI_POO_2021_1';//localhost na maioria dos PCs dos alunos
+    public $user = 'root';
+    public $password = '';
 }
