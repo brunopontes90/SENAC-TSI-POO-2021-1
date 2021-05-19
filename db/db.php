@@ -1,5 +1,7 @@
 <?php
 require_once 'config.php';
+require_once 'sessao.php';
+$sessao = new  Sessao();
 
 class BancoDeDados {
     private $pdo;
@@ -43,5 +45,9 @@ class BancoDeDados {
 
         // pega todas as linhas em forma de array
         return $dados->fetchAll(PDO::FETCH_CLASS);
+    }
+
+    public function editaUsuario(): array{
+        $dados = $this->pdo->prepare("SELECT id, email, nome, endereco, complemento, cidade, estado, cep FROM cadastro WHERE id = " . $sessao['id']);
     }
 }
