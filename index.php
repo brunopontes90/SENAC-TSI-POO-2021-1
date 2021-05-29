@@ -1,4 +1,10 @@
-<?php session_start(); ?>
+<?php
+    require_once 'db/db.php';
+    require_once 'php/sessao.php';
+    $sessao = new Sessao();
+    $sessao->iniciarSessao();
+
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -11,9 +17,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/8455a3d02b.js" crossorigin="anonymous"></script>
-    <script src="../javascript/validaForm.js"></script>
-    <link rel="stylesheet" href="../css/index.css">
-    <link rel="icon" href="../img/Logo2.png">
+    <script src="/javascript/validaForm.js"></script>
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="icon" href="./img/Logo2.png">
 
     <title>Just-t Store</title>
 </head>
@@ -25,7 +31,7 @@
         <!--Logo-->
         <nav class="navbar navbar-expand-sm navbar-light">
         <a href="../index.php" class="navbar-brand">
-                <img src="../img/Logo2.png" alt="img" style="width: 5rem;">
+                <img src="./img/Logo2.png" alt="img" style="width: 5rem;">
                 <h1 class="d-none">Just-T Store</h1>
             </a>
 
@@ -46,7 +52,7 @@
                     </li>
 
                     <!-- VERIFICA SE ESTA LOGADO COMO ADMIN NA POSIÇÃO 1 DO BANCO -->
-                    <?php if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {?>
+                    <?php if ($sessao->ehAdmin()) {?>
                         <li class="nav-item active">
                             <a href="php/listarProdutos.php" class="nav-link text-muted font-weight-bold">Controle de Produtos</a>
                         </li>
@@ -56,9 +62,9 @@
                 <!-- VERIFICA SE JA ESTA LOGADO, SE ESTIVER, APARECE OS ICONES DE EDITAR E SAIR -->
                 <div class="font-weight-bold">
                     <!-- Login -->
-                    <?php if (isset($_SESSION['login'])) {?>
-                            
-                        Olá, <?=$_SESSION['login']?>
+                    <?php if ($sessao->estaLogado()) {?>
+
+                        Olá, <?=$sessao->pegaNomeUser()?>
 
                         <!-- Editar -->
                         <a href="./php/editar.php" class="nav-icon mx-3">
@@ -89,7 +95,7 @@
         <!--BANNER-->
         <section class="jumbotron"></section>
 
-        <section class="container mt-5" id="produtos">
+        <section class="container mt-5 shadow bg-white roundeds" id="produtos">
             <div class="row py-5">
                 <div class="mx-auto col-10 text-center">
                     <h2 class="h1 text-uppercase text-muted font-weight-bold">Nossos produtos</h2>
@@ -98,15 +104,12 @@
             </div>
 
             <!-- chamar a classe $produto->listar() -->
+            <!-- NÃO ESTA RENDERIZANDO POR CAUSA DESTE PHP -->
             <?php 
-                require_once 'db/db.php';
-
-                // Listar a consulta
-                $result = array();
-                $sql = "SELECT * FROM produto";
-                
-                $result = $banco->query($sql)->fetchAll();  
+                $banco = new BancoDeDados();
+                $result = $banco->consultaTodosProdutos();
             ?>
+           
             <!--PRODUTO-->
             <div class="row">
           

@@ -2,6 +2,13 @@
 session_start();
 require_once '../db/db.php';
 
+$db = new BancoDeDados();
+$banco = $db->pegaPDO();
+
+
+// $result = $db->pegaTodosProdutos();
+
+
  // Listar a consulta
  $result = array();
  $sql = "SELECT * FROM produto";
