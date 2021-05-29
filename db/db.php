@@ -1,7 +1,5 @@
 <?php
 require_once 'config.php';
-require_once 'sessao.php';
-$sessao = new  Sessao();
 
 class BancoDeDados {
     private $pdo;
