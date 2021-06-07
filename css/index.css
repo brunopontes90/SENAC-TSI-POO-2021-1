@@ -91,7 +91,8 @@
 .jumbotron {
     min-height: calc(100vh - 86px);
     border-radius: 0px;
-    background: url('../img/banner.jpg') no-repeat fixed;
+    background: url('/img/banner.jpg');
+    /*NÃO ESTA RENDERIZANDO A IMAGEM*/
     background-size: 100% 100%;
     padding: 30px 0px 50% 0px;
     margin-bottom: 0px;

@@ -1,3 +1,11 @@
+<?php
+
+    require_once 'db/db.php';
+    require_once 'php/sessao.php';
+    $sessao = new Sessao();
+    $sessao->iniciarSessao();
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -28,9 +36,9 @@
 
             <div class="font-weight-bold m-3 h6">
                     <!-- Login -->
-                    <?php if (isset($_SESSION['login'])) {?>
+                    <?php if ($sessao->estaLogado()) {?>
                             
-                        Ola, <?=$_SESSION['login']?>
+                        Ola, <?=$sessao->pegaNomeUser()?>
  
                       
                         <!-- Sair -->
@@ -90,43 +98,7 @@
                     <label for="inputCEP">CEP</label>
                     <input type="text" class="form-control" id="inputCEP" placeholder="CEP" name="cep" value="<?=$row['cep']?>">
                 </div>
-
-
-                <!--Cartões-->
-                <!--
-                <legend class="h5 mb-3 mt-5">Cartão de crédito</legend>
-
-                <div class="form-group p-1">
-                    <label for="numero-cartao">Número - CVV</label>
-                    <input type="text" class="form-control" id="numero-cartao" name="numero-cartao">
-                </div>
-
-                <div class="form-group p-1">
-                    <label for="bandeira-cartao">Bandeira</label>
-                    <select class="form-control" id="bandeira-cartao">
-                                <option disabled selected>Selecione uma opção...</option>
-                                <option value="master">MasterCard</option>
-                                <option value="visa">VISA</option>
-                                <option value="amex">American Express</option>
-                            </select>
-                </div>
-
-                <div class="form-group p-1">
-                    <label for="validade-cartao">Validade</label>
-                    <input type="month" class="form-control" id="validade-cartao" name="validade-cartao">
-                </div>
-                -->
             </div>
-
-            <!--
-            <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">Gostaria de receber novidades em meu e-mail</label>
-                </div>
-            </div>
-            -->
-
             <input type="submit" class="btn btn-primary mt-3" value="Enviar"></input>
         </form>
     </main>

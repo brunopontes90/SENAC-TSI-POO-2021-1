@@ -54,7 +54,7 @@
                             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" name="entrar">Entrar</button>
                             <hr class="my-4">
                             <div class="row">
-                                <a href="/html/cadastro.html" class="m-3" id="nao-possuo">Não possuo cadastro</a>
+                                <a href="../html/cadastro.html" class="m-3" id="nao-possuo">Não possuo cadastro</a>
                                 <a href="../index.php" class="m-3" id="pagina-inicial">Voltar a página inicial</a>
                             </div>
                         </form>
